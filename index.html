@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="static/styles/styles.css">
+    <script type="module" src="./static/scripts/add_task.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <main class="to_do_list">
+        <div class="to_do_list__title">
+            <form>
+                <div class="input">
+                    <input type="text" name="text" placeholder="&nbsp;">
+                    <label>Title...</label>
+                </div>
+                <div class="input">
+                    <input type="text" name="text" placeholder="&nbsp;">
+                    <label>About...</label>
+                </div>
+            </form>
+            <span class="add_task"></span>
+        </div>
+        <ul class="to_do_list__body">
+        </ul>
+        <div class="no_tasks">No tasks</div>
+        <div class="to_do_list__footer">
+        </div>
+    </main>
+    <div class="window">
+        <div class="window__delete">
+            <p>Delete this task?</p>
+            <div class="default_button_for_window">
+                <button>Yes</button>
+                <button>No</button>
+            </div>
+        </div>
+    </div>
+    <div class="window">
+        <div class="window__edit">
+            <div class="input">
+                <input type="text" name="edit_title" placeholder="&nbsp;">
+                <label>Title...</label>
+            </div>
+            <div class="input">
+                <textarea name="edit_about" placeholder="&nbsp;"></textarea>
+                <label>About...</label>
+            </div>
+            <div class="default_button_for_window">
+                <button class="edit_confirm_btn">Yes</button>
+                <button class="edit_cancel_btn">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

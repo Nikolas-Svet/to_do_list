@@ -1,0 +1,323 @@
+.input {
+  position: relative;
+  margin-bottom: 6px;
+  width: 100%;
+  height: 32px;
+}
+.input:last-child {
+  margin-bottom: 0;
+}
+.input input, .input textarea {
+  border: 1px solid #FF8303;
+  height: 100%;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 10px 16px;
+  display: block;
+  width: 100%;
+  background-color: #242320;
+  box-sizing: border-box;
+  transition: 0.2s;
+  outline: none;
+  color: #F0E3CA;
+}
+.input input:focus, .input textarea:focus {
+  box-shadow: 0 0 5px 2px rgba(245, 241, 241, 0.15);
+}
+.input input:focus + label,
+.input input:not(:placeholder-shown) + label,
+.input textarea:focus + label,
+.input textarea:not(:placeholder-shown) + label {
+  display: none;
+}
+.input label {
+  position: absolute;
+  pointer-events: none;
+  left: 14px;
+  top: -10px;
+  transition: 0.3s ease all;
+  padding: 16px 0;
+  color: rgba(240, 227, 202, 0.6392156863);
+}
+
+.add_task {
+  cursor: pointer;
+  min-width: 70px;
+  border-radius: 8px;
+  height: 70px;
+  border: 1px solid #FF8303;
+  position: relative;
+}
+.add_task:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 3px;
+  background-color: #FF8303;
+  border-radius: 1px;
+}
+.add_task:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  width: 24px;
+  height: 3px;
+  background-color: #FF8303;
+  border-radius: 1px;
+}
+
+.cancel {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #FF8303;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancel:hover {
+  border: 1px solid rgba(255, 131, 3, 0.8);
+}
+.cancel:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 11px;
+  height: 1px;
+  background-color: #FF8303;
+  border-radius: 1px;
+}
+.cancel:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 11px;
+  height: 1px;
+  background-color: #FF8303;
+  border-radius: 1px;
+}
+
+.no_tasks {
+  width: 100%;
+  height: 53px;
+  font-size: 24px;
+  font-weight: 200;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  position: relative;
+}
+.no_tasks:after {
+  content: "";
+  position: absolute;
+  height: 47px;
+  width: 64px;
+  top: 0;
+  border-top: 3px solid #FF8303;
+  border-bottom: 3px solid #FF8303;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter.ttf") format("truetype");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1B1A17;
+}
+
+.container {
+  min-height: 800px;
+  max-width: 390px;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  box-shadow: 0 0 5px 2px rgba(75, 74, 74, 0.66);
+  position: relative;
+}
+
+.to_do_list {
+  background-color: #1B1A17;
+  padding: 23px;
+}
+.to_do_list__title {
+  margin-bottom: 33px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.to_do_list__title form {
+  width: 77%;
+}
+.to_do_list__body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 650px;
+  overflow: auto;
+}
+.to_do_list__body li {
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #A35709;
+  border-radius: 8px;
+  background-color: #242320;
+}
+.to_do_list__body li:last-child {
+  margin-bottom: 0;
+}
+.to_do_list__body li div {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #F0E3CA;
+}
+.to_do_list__body li div p {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.window {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(7, 7, 7, 0.8901960784);
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.window:last-child {
+  align-items: end;
+}
+.window__delete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 280px;
+  width: 100%;
+  background-color: #1B1A17;
+  position: relative;
+  padding: 37px 58px 13px 58px;
+}
+.window__delete:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  background-color: #A35709;
+  top: 0;
+  left: 0;
+}
+.window__delete p {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  color: #FFFFFF;
+  margin-bottom: 45px;
+}
+.window__edit {
+  max-width: 360px;
+  width: 100%;
+  padding: 18px;
+  background-color: #1B1A17;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.window__edit .input:first-child {
+  height: 32px !important;
+}
+.window__edit .input:nth-child(2) {
+  height: 343px !important;
+}
+
+.panel_task {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+}
+.panel_task__content {
+  width: 100%;
+  max-width: 124px;
+  display: flex;
+  justify-content: space-between;
+}
+.panel_task__content button {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  background-color: #242320;
+  border: 1px solid #A35709;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.panel_task__content button:hover {
+  border: 1px solid #FF8303;
+}
+.panel_task__content button img {
+  height: 16px;
+  width: 16px;
+}
+
+.default_button_for_window {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 140px;
+}
+.default_button_for_window button {
+  width: 45%;
+  font-size: 10px;
+  font-weight: 400;
+  color: #D9D9D9;
+  border-radius: 4px;
+  height: 24px;
+  background-color: #242320;
+  border: 1px solid #A35709;
+  cursor: pointer;
+}
+.default_button_for_window button:hover {
+  border: 1px solid #FF8303;
+}
+
+/*# sourceMappingURL=styles.css.map */
