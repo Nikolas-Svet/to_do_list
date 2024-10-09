@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="static/styles/styles.css">
-    <script type="module" src="./static/scripts/add_task.js"></script>
+    <script type="module" src="./static/scripts/ui.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>to-do-list</title>
+    <script>
+        function closeWindows() {
+            document.querySelectorAll(".window")[0].style.display = 'none';
+            document.querySelectorAll(".window")[1].style.display = 'none';
+            document.querySelectorAll(".window")[2].style.display = 'none';
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -30,6 +37,7 @@
         </div>
     </main>
     <div class="window">
+        <div onclick="closeWindows()" class="window__wrap"></div>
         <div class="window__delete">
             <p>Delete this task?</p>
             <div class="default_button_for_window">
@@ -39,6 +47,7 @@
         </div>
     </div>
     <div class="window">
+        <div onclick="closeWindows()" class="window__wrap"></div>
         <div class="window__edit">
             <div class="input">
                 <input type="text" name="edit_title" placeholder="&nbsp;">
@@ -52,6 +61,16 @@
                 <button class="edit_confirm_btn">Yes</button>
                 <button class="edit_cancel_btn">No</button>
             </div>
+        </div>
+    </div>
+    <div class="window">
+        <div onclick="closeWindows()" class="window__wrap"></div>
+        <div class="window__share">
+            <div><img src="static/icons/copy.svg" alt=""></div>
+            <div><img src="static/icons/vk.svg" alt=""></div>
+            <div><img src="static/icons/telegram.svg" alt=""></div>
+            <div><img src="static/icons/whatsapp.svg" alt=""></div>
+            <div><img src="static/icons/facebook.svg" alt=""></div>
         </div>
     </div>
 </div>
