@@ -1,0 +1,57 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+.add_task {
+  @include button-style(70px, 70px, transparent, $color-primary, $border-radius-large);
+  min-width: 70px;
+  position: relative;
+
+  &:after,
+  &:before {
+    content: '';
+    width: 24px;
+    height: 3px;
+    background-color: $color-primary;
+    border-radius: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  &:after {
+    transform: translate(-50%, -50%);
+  }
+
+  &:before {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+
+.cancel {
+  @include button-style(32px, 32px, transparent, $color-primary, $border-radius-small);
+  position: relative;
+
+  &:hover {
+    border-color: $color-hover;
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    width: 11px;
+    height: 1px;
+    background-color: $color-primary;
+    border-radius: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  &:after {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}

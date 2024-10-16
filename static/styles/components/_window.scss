@@ -9,17 +9,14 @@
 
   &__wrap {
     position: absolute;
-    background: #070707E3;
+    top: 0;
     height: 100%;
     width: 100%;
-    top: 0;
+    background: #070707E3;
     z-index: 1;
   }
 
-  &:nth-child(3) {
-    align-items: end;
-  }
-
+  &:nth-child(3),
   &:nth-child(4) {
     align-items: end;
   }
@@ -32,39 +29,39 @@
     align-items: center;
     max-width: 280px;
     width: 100%;
-    background-color: #1B1A17;
     padding: 37px 58px 13px 58px;
+    background-color: #1B1A17;
 
     &:after {
       content: '';
       position: absolute;
+      top: 0;
+      left: 0;
       height: 5px;
       width: 100%;
       background-color: #A35709;
-      top: 0;
-      left: 0;
     }
 
     p {
+      margin-bottom: 45px;
       font-size: 18px;
       font-weight: 400;
       text-align: center;
       color: #FFFFFF;
-      margin-bottom: 45px;
     }
   }
 
   &__edit {
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 360px;
     width: 100%;
     padding: 18px;
     background-color: #1B1A17;
     border-radius: 8px 8px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     .input {
       &:first-child {
@@ -80,14 +77,14 @@
   &__share {
     position: relative;
     z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     max-width: 360px;
     width: 100%;
     padding: 18px;
     background-color: #1B1A17;
     border-radius: 8px 8px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     div {
       cursor: pointer;
@@ -123,14 +120,13 @@
 
   button {
     width: 45%;
+    height: 24px;
     font-size: 10px;
     font-weight: 400;
     color: #D9D9D9;
-    border-radius: 4px;
-    height: 24px;
     background-color: #242320;
+    border-radius: 4px;
     border: 1px solid #A35709;
-    cursor: pointer;
 
     &:hover {
       border: 1px solid #FF8303;

@@ -1,10 +1,68 @@
 import { removeTask, saveTaskChanges } from './tasks.js';
-import { saveTasksToLocalStorage, getTasksFromLocalStorage } from './storage.js';
+import { getTasksFromLocalStorage, saveTasksToLocalStorage, generateUniqueId } from './storage.js';
 
 export function closeWindows() {
-    document.querySelectorAll(".window")[0].style.display = 'none';
-    document.querySelectorAll(".window")[1].style.display = 'none';
-    document.querySelectorAll(".window")[2].style.display = 'none';
+    document.querySelectorAll(".window").forEach(window => {
+        window.style.display = 'none';
+    });
+}
+
+export function initializeWindowWraps() {
+    const windowWraps = document.querySelectorAll('.window__wrap');
+    windowWraps.forEach(wrap => {
+        wrap.addEventListener('click', function () {
+            closeWindows();
+        });
+    });
+}
+
+export function createTaskElement(task) {
+    const li = document.createElement('li');
+    li.setAttribute('data-id', task.id);
+    li.innerHTML = `
+        <div>
+            <p>${task.title}</p>
+            <p>${task.about}</p>
+        </div>
+        <span class="cancel">️</span>
+    `;
+
+    const panel = document.createElement('div');
+    panel.classList.add('panel_task');
+    panel.style.display = 'none';
+    panel.innerHTML = `
+        <div class="panel_task__content">
+            <button class="edit_task_btn"><img src="./static/icons/edit.svg" alt=""></button>
+            <button class="share_task_btn"><img src="./static/icons/share.svg" alt=""></button>
+            <button><img src="./static/icons/info.svg" alt=""></button>
+        </div>
+    `;
+
+    const cancelButton = li.querySelector('.cancel');
+    cancelButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        removeTask(li, task.id);
+    });
+
+    li.addEventListener('click', function () {
+        toggleTaskPanel(panel);
+    });
+
+    const editButton = panel.querySelector('.edit_task_btn');
+    editButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        showEditWindow(task, li);
+    });
+
+    const shareButton = panel.querySelector('.share_task_btn');
+    if (shareButton) {
+        shareButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            shareWindow();
+        });
+    }
+
+    return { li, panel };
 }
 
 export function renderTasks(tasks) {
@@ -12,64 +70,34 @@ export function renderTasks(tasks) {
     taskList.innerHTML = '';
 
     tasks.forEach(task => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div>
-                <p>${task.title}</p>
-                <p>${task.about}</p>
-            </div>
-            <span class="cancel">️</span>
-        `;
+        const { li, panel } = createTaskElement(task);
         taskList.appendChild(li);
-
-        const panel = document.createElement('div');
-        panel.classList.add('panel_task');
-        panel.style.display = 'none';
-        panel.innerHTML = `
-            <div class="panel_task__content">
-                <button class="edit_task_btn"><img src="./static/icons/edit.svg" alt=""></button>
-                <button class="share_task_btn"><img src="./static/icons/share.svg" alt=""></button>
-                <button><img src="./static/icons/info.svg" alt=""></button>
-            </div>
-        `;
         taskList.appendChild(panel);
-
-        const cancelButton = li.querySelector('.cancel');
-        cancelButton.addEventListener('click', function () {
-            removeTask(li, task.title);
-        });
-
-        li.addEventListener('click', function () {
-            toggleTaskPanel(panel);
-        });
-
-        const editButton = panel.querySelector('.edit_task_btn');
-        editButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            showEditWindow(task);
-        });
-
-        const shareButton = panel.querySelector('.share_task_btn');
-        if (shareButton) {
-            shareButton.addEventListener('click', function (event) {
-                event.stopPropagation();
-                shareWindow();
-            });
-        }
     });
 
     document.querySelector('.no_tasks').style.display = tasks.length === 0 ? 'flex' : 'none';
 }
 
-export function toggleTaskPanel(panel) {
-    if (panel.style.display === 'flex') {
-        panel.style.display = 'none';
-    } else {
-        panel.style.display = 'flex';
-    }
+export function updateTaskInDOM(taskElement, task) {
+    const titleElement = taskElement.querySelector('div > p:nth-child(1)');
+    const aboutElement = taskElement.querySelector('div > p:nth-child(2)');
+    titleElement.textContent = task.title;
+    aboutElement.textContent = task.about;
 }
 
-export function showEditWindow(task) {
+export function removeTaskFromDOM(taskElement) {
+    const panel = taskElement.nextElementSibling;
+    if (panel && panel.classList.contains('panel_task')) {
+        panel.remove();
+    }
+    taskElement.remove();
+}
+
+export function toggleTaskPanel(panel) {
+    panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+}
+
+export function showEditWindow(task, taskElement) {
     const editWindow = document.querySelectorAll('.window')[1];
     editWindow.style.display = 'flex';
 
@@ -79,8 +107,11 @@ export function showEditWindow(task) {
     const confirmButton = document.querySelector('.edit_confirm_btn');
     const cancelButton = document.querySelector('.edit_cancel_btn');
 
+    confirmButton.onclick = null;
+    cancelButton.onclick = null;
+
     confirmButton.onclick = function () {
-        saveTaskChanges(task);
+        saveTaskChanges(task, taskElement);
         editWindow.style.display = 'none';
     };
     cancelButton.onclick = function () {
@@ -102,7 +133,11 @@ add_task_button.addEventListener('click', function () {
         const title = inputs[0].value.trim();
         const about = inputs[1].value.trim();
 
-        const newTask = { title, about };
+        const newTask = {
+            id: generateUniqueId(),
+            title,
+            about
+        };
 
         const tasks = getTasksFromLocalStorage();
         tasks.push(newTask);
@@ -110,7 +145,12 @@ add_task_button.addEventListener('click', function () {
 
         inputs.forEach(input => input.value = '');
 
-        renderTasks(tasks);
+        const { li, panel } = createTaskElement(newTask);
+        const taskList = document.querySelector('.to_do_list__body');
+        taskList.appendChild(li);
+        taskList.appendChild(panel);
+
+        document.querySelector('.no_tasks').style.display = 'none';
 
         alert('Оба поля заполнены! Задача добавлена.');
     } else {
@@ -121,4 +161,5 @@ add_task_button.addEventListener('click', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const tasks = getTasksFromLocalStorage();
     renderTasks(tasks);
+    initializeWindowWraps();
 });

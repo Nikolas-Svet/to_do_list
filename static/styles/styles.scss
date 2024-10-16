@@ -1,5 +1,7 @@
-@import "input";
-@import "icons";
-@import "window";
-@import "main";
-@import "base";
+@import "components/input";
+@import "components/icons";
+@import "components/window";
+@import "layout/to_do_list";
+@import "base/base";
+@import "base/mixins";
+@import "base/variables";

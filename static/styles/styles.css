@@ -1,25 +1,25 @@
 .input {
   position: relative;
-  margin-bottom: 6px;
   width: 100%;
   height: 32px;
+  margin-bottom: 6px;
 }
 .input:last-child {
   margin-bottom: 0;
 }
 .input input, .input textarea {
-  border: 1px solid #FF8303;
-  height: 100%;
-  border-radius: 4px;
-  font-size: 16px;
-  padding: 10px 16px;
-  display: block;
   width: 100%;
+  height: 100%;
+  padding: 10px 16px;
+  font-size: 16px;
+  border: 1px solid #FF8303;
+  border-radius: 4px;
   background-color: #242320;
+  color: #F0E3CA;
+  display: block;
   box-sizing: border-box;
   transition: 0.2s;
   outline: none;
-  color: #F0E3CA;
 }
 .input input:focus, .input textarea:focus {
   box-shadow: 0 0 5px 2px rgba(245, 241, 241, 0.15);
@@ -32,99 +32,82 @@
 }
 .input label {
   position: absolute;
-  pointer-events: none;
   left: 14px;
   top: -10px;
-  transition: 0.3s ease all;
   padding: 16px 0;
   color: rgba(240, 227, 202, 0.6392156863);
+  pointer-events: none;
+  transition: 0.3s ease all;
 }
 
 .add_task {
-  cursor: pointer;
-  min-width: 70px;
-  border-radius: 8px;
+  width: 70px;
   height: 70px;
+  background-color: transparent;
   border: 1px solid #FF8303;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border 0.2s;
+  min-width: 70px;
   position: relative;
 }
-.add_task:after {
+.add_task:hover {
+  border-color: rgba(255, 131, 3, 0.8);
+}
+.add_task:after, .add_task:before {
   content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 24px;
   height: 3px;
   background-color: #FF8303;
   border-radius: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.add_task:after {
+  transform: translate(-50%, -50%);
 }
 .add_task:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
-  width: 24px;
-  height: 3px;
-  background-color: #FF8303;
-  border-radius: 1px;
 }
 
 .cancel {
   width: 32px;
   height: 32px;
+  background-color: transparent;
   border: 1px solid #FF8303;
-  position: relative;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.cancel:hover {
-  border: 1px solid rgba(255, 131, 3, 0.8);
-}
-.cancel:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 11px;
-  height: 1px;
-  background-color: #FF8303;
-  border-radius: 1px;
-}
-.cancel:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  width: 11px;
-  height: 1px;
-  background-color: #FF8303;
-  border-radius: 1px;
-}
-
-.no_tasks {
-  width: 100%;
-  height: 53px;
-  font-size: 24px;
-  font-weight: 200;
-  line-height: 1.2;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  cursor: pointer;
+  transition: border 0.2s;
   position: relative;
 }
-.no_tasks:after {
+.cancel:hover {
+  border-color: rgba(255, 131, 3, 0.8);
+}
+.cancel:hover {
+  border-color: rgba(255, 131, 3, 0.8);
+}
+.cancel:after, .cancel:before {
   content: "";
+  width: 11px;
+  height: 1px;
+  background-color: #FF8303;
+  border-radius: 1px;
   position: absolute;
-  height: 47px;
-  width: 64px;
-  top: 0;
-  border-top: 3px solid #FF8303;
-  border-bottom: 3px solid #FF8303;
+  top: 50%;
+  left: 50%;
+}
+.cancel:after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.cancel:before {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .window {
@@ -138,16 +121,13 @@
 }
 .window__wrap {
   position: absolute;
-  background: rgba(7, 7, 7, 0.8901960784);
+  top: 0;
   height: 100%;
   width: 100%;
-  top: 0;
+  background: rgba(7, 7, 7, 0.8901960784);
   z-index: 1;
 }
-.window:nth-child(3) {
-  align-items: end;
-}
-.window:nth-child(4) {
+.window:nth-child(3), .window:nth-child(4) {
   align-items: end;
 }
 .window__delete {
@@ -158,36 +138,36 @@
   align-items: center;
   max-width: 280px;
   width: 100%;
-  background-color: #1B1A17;
   padding: 37px 58px 13px 58px;
+  background-color: #1B1A17;
 }
 .window__delete:after {
   content: "";
   position: absolute;
+  top: 0;
+  left: 0;
   height: 5px;
   width: 100%;
   background-color: #A35709;
-  top: 0;
-  left: 0;
 }
 .window__delete p {
+  margin-bottom: 45px;
   font-size: 18px;
   font-weight: 400;
   text-align: center;
   color: #FFFFFF;
-  margin-bottom: 45px;
 }
 .window__edit {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 360px;
   width: 100%;
   padding: 18px;
   background-color: #1B1A17;
   border-radius: 8px 8px 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .window__edit .input:first-child {
   height: 32px !important;
@@ -198,14 +178,14 @@
 .window__share {
   position: relative;
   z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 360px;
   width: 100%;
   padding: 18px;
   background-color: #1B1A17;
   border-radius: 8px 8px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .window__share div {
   cursor: pointer;
@@ -236,14 +216,13 @@
 }
 .default_button_for_window button {
   width: 45%;
+  height: 24px;
   font-size: 10px;
   font-weight: 400;
   color: #D9D9D9;
-  border-radius: 4px;
-  height: 24px;
   background-color: #242320;
+  border-radius: 4px;
   border: 1px solid #A35709;
-  cursor: pointer;
 }
 .default_button_for_window button:hover {
   border: 1px solid #FF8303;
@@ -254,11 +233,11 @@
   padding: 23px;
 }
 .to_do_list__title {
+  width: 100%;
   margin-bottom: 33px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 .to_do_list__title form {
   width: 77%;
@@ -271,13 +250,13 @@
   overflow: auto;
 }
 .to_do_list__body li {
-  cursor: pointer;
+  width: 100%;
   margin-bottom: 16px;
   padding: 16px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
   border: 1px solid #A35709;
   border-radius: 8px;
   background-color: #242320;
@@ -341,7 +320,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -357,10 +336,10 @@ body {
   min-height: 800px;
   max-width: 390px;
   width: 100%;
-  padding: 0;
-  margin: 0 auto;
-  box-shadow: 0 0 5px 2px rgba(75, 74, 74, 0.66);
   position: relative;
+  margin: 0 auto;
+  padding: 0;
+  box-shadow: 0 0 5px 2px rgba(75, 74, 74, 0.66);
 }
 
 /*# sourceMappingURL=styles.css.map */
